@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 320 100% 70%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 98%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 98%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 320 100% 70%;
+    --radius: 0.5rem;
+
+    /* Teal Theme Colors */
+    --deep-teal: 184 100% 10%; /* #003135 */
+    --medium-teal: 184 95% 15%; /* #024950 */
+    --rust: 12 45% 31%; /* #964734 */
+    --bright-teal: 184 91% 35%; /* #0FA4AF */
+    --light-cyan: 184 58% 75%; /* #AFDDE5 */
+
+    /* Earthy Sandy Theme Colors */
+    --charcoal-clay: 25 26% 21%; /* #3E362E */
+    --warm-clay: 30 42% 37%; /* #865D36 */
+    --sandy-taupe: 32 25% 46%; /* #93785B */
+    --warm-sand: 30 25% 54%; /* #AC8968 */
+    --slate-sand: 30 8% 58%; /* #A69080 */
+
+    /* Purple Dark Theme Colors */
+    --dark-navy: 220 26% 14%; /* Dark background */
+    --charcoal-dark: 220 20% 10%; /* Darker elements */
+    --purple-primary: 300 76% 72%; /* Bright purple/magenta */
+    --purple-secondary: 315 100% 70%; /* Pink-purple */
+    --text-primary: 0 0% 100%; /* White text */
+    --text-secondary: 220 9% 70%; /* Gray text */
+    --text-muted: 220 9% 46%; /* Muted gray */
+  }
+
+  .dark {
+    --background: 184 100% 10%;
+    --foreground: 184 58% 95%;
+    --card: 184 95% 15%;
+    --card-foreground: 184 58% 95%;
+    --popover: 184 95% 15%;
+    --popover-foreground: 184 58% 95%;
+    --primary: 184 91% 35%;
+    --primary-foreground: 184 100% 10%;
+    --secondary: 184 95% 20%;
+    --secondary-foreground: 184 58% 95%;
+    --muted: 184 95% 20%;
+    --muted-foreground: 184 30% 65%;
+    --accent: 184 95% 20%;
+    --accent-foreground: 184 58% 95%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 184 95% 20%;
+    --input: 184 95% 20%;
+    --ring: 184 91% 35%;
+  }
+
+  /* Teal Theme */
+  .theme-teal {
+    --background: 184 100% 10%;
+    --foreground: 184 58% 95%;
+    --card: 184 95% 15%;
+    --card-foreground: 184 58% 95%;
+    --popover: 184 95% 15%;
+    --popover-foreground: 184 58% 95%;
+    --primary: 184 91% 35%;
+    --primary-foreground: 184 100% 10%;
+    --secondary: 184 95% 20%;
+    --secondary-foreground: 184 58% 95%;
+    --muted: 184 95% 20%;
+    --muted-foreground: 184 30% 65%;
+    --accent: 184 95% 20%;
+    --accent-foreground: 184 58% 95%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 184 95% 20%;
+    --input: 184 95% 20%;
+    --ring: 184 91% 35%;
+  }
+
+  /* Earthy Sandy Theme */
+  .theme-earthy {
+    --background: 25 26% 21%;
+    --foreground: 30 8% 95%;
+    --card: 30 42% 37%;
+    --card-foreground: 30 8% 95%;
+    --popover: 30 42% 37%;
+    --popover-foreground: 30 8% 95%;
+    --primary: 30 42% 37%;
+    --primary-foreground: 30 8% 95%;
+    --secondary: 32 25% 46%;
+    --secondary-foreground: 30 8% 95%;
+    --muted: 32 25% 46%;
+    --muted-foreground: 30 25% 75%;
+    --accent: 32 25% 46%;
+    --accent-foreground: 30 8% 95%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 30 42% 30%;
+    --input: 30 42% 30%;
+    --ring: 30 42% 37%;
+  }
+
+  /* Purple Dark Theme - The one you want! */
+  .theme-purple {
+    --background: 220 30% 8%; /* Very dark navy background */
+    --foreground: 0 0% 100%; /* Pure white text */
+    --card: 220 25% 12%; /* Slightly lighter dark for cards */
+    --card-foreground: 0 0% 100%; /* White text on cards */
+    --popover: 220 25% 12%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 320 100% 70%; /* Bright magenta/pink */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+    --secondary: 220 20% 18%; /* Dark gray for secondary elements */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 20% 18%; /* Muted dark gray */
+    --muted-foreground: 220 15% 65%; /* Light gray for muted text */
+    --accent: 220 20% 18%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 220 20% 25%; /* Slightly lighter borders */
+    --input: 220 20% 18%; /* Dark input backgrounds */
+    --ring: 320 100% 70%; /* Bright magenta focus ring */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground transition-colors duration-500;
+  }
+}
+
+/* Purple Dark Theme Gradients */
+.gradient-bg-purple {
+  background: linear-gradient(135deg, hsl(220, 30%, 8%) 0%, hsl(220, 25%, 10%) 50%, hsl(220, 30%, 8%) 100%);
+  transition: background 0.5s ease;
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, hsl(320, 100%, 70%) 0%, hsl(330, 100%, 75%) 100%);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, hsl(320, 100%, 70%) 0%, hsl(330, 100%, 75%) 100%);
+}
+
+/* Teal Theme Gradients */
+.gradient-bg {
+  background: linear-gradient(135deg, hsl(184, 100%, 10%) 0%, hsl(184, 95%, 15%) 50%, hsl(184, 100%, 10%) 100%);
+  transition: background 0.5s ease;
+}
+
+.theme-teal .gradient-accent {
+  background: linear-gradient(135deg, hsl(184, 91%, 35%) 0%, hsl(184, 58%, 75%) 100%);
+}
+
+/* Earthy Theme Gradients */
+.gradient-bg-earthy {
+  background: linear-gradient(135deg, hsl(25, 26%, 21%) 0%, hsl(30, 42%, 37%) 50%, hsl(25, 26%, 21%) 100%);
+  transition: background 0.5s ease;
+}
+
+.theme-earthy .gradient-accent {
+  background: linear-gradient(135deg, hsl(30, 42%, 37%) 0%, hsl(32, 25%, 46%) 100%);
+}
+
+/* Theme-specific accent gradients */
+.theme-purple .gradient-accent {
+  background: linear-gradient(135deg, hsl(320, 100%, 70%) 0%, hsl(330, 100%, 75%) 100%);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
