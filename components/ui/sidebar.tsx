@@ -399,6 +399,14 @@ const SidebarContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div">
 >(({ className, ...props }, ref) => {
+  const { isMobile, setOpenMobile } = useSidebar()
+
+  const handleClick = () => {
+    if (isMobile) {
+      setOpenMobile(false)
+    }
+  }
+
   return (
     <div
       ref={ref}
@@ -407,6 +415,7 @@ const SidebarContent = React.forwardRef<
         "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
         className
       )}
+      onClick={handleClick} 
       {...props}
     />
   )

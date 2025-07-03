@@ -7,7 +7,7 @@ import Link from "next/link"
 export default function ApiOverviewPage() {
   return (
     <div className="flex-1 p-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl ml-0 mr-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-4">API Overview</h1>
@@ -16,14 +16,6 @@ export default function ApiOverviewPage() {
             applications. Built on a RESTful architecture, it <strong>currently supports only HTTP endpoints</strong>.
           </p>
         </div>
-
-        {/* Future Updates */}
-        <section className="mb-8">
-          <p className="text-muted-foreground leading-relaxed">
-            Future updates may include the release of JavaScript and Python client libraries to further simplify
-            integration.
-          </p>
-        </section>
 
         {/* Base URL */}
         <section className="mb-12">

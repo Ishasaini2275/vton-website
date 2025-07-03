@@ -2,15 +2,17 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { SidebarProvider } from "@/components/ui/sidebar"
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import { Separator } from "@/components/ui/separator"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "VirtualTryon AI - API Documentation",
   description: "Virtual Try-On API Documentation and Integration Guide",
-    generator: 'v0.dev'
+  generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -22,10 +24,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} theme-purple gradient-bg-purple`}>
         <SidebarProvider>
-          <div className="flex min-h-screen">
-            <AppSidebar />
+          <AppSidebar />
+          <SidebarInset>
+            <header className="flex h-16 shrink-0 items-center gap-2 border-b border-border px-4">
+              <SidebarTrigger className="-ml-1 md:hidden" />
+            </header>
             <main className="flex-1">{children}</main>
-          </div>
+          </SidebarInset>
         </SidebarProvider>
       </body>
     </html>

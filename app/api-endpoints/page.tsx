@@ -3,7 +3,15 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Copy, Upload, ImageIcon, Users } from "lucide-react"
+import { Copy, Upload, ImageIcon } from "lucide-react"
+
+const CodeBlock = ({ children }: { children: string }) => (
+  <div className="bg-muted/10 border border-border rounded-lg p-4 overflow-x-auto">
+    <pre className="font-mono text-sm text-primary whitespace-pre-wrap leading-relaxed">
+      {children}
+    </pre>
+  </div>
+)
 
 export default function ApiEndpointsPage() {
   const copyToClipboard = (text: string) => {
@@ -11,43 +19,40 @@ export default function ApiEndpointsPage() {
   }
 
   return (
-    <div className="flex-1 p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="flex-1 p-4 md:p-8">
+      <div className="max-w-4xl ml-0 mr-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-4">API Endpoints</h1>
-          <p className="text-xl text-gray-300 leading-relaxed">
-            Complete reference for all available VirtualTryon API endpoints. All endpoints require authentication via API
-            key in the Authorization header.
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">API Endpoints</h1>
+          <p className="text-muted-foreground text-base md:text-lg">
+            Reference for all available Virtual Try-on API endpoints. Include your API key in the <code className="font-mono">Authorization</code> header on every request.
           </p>
         </div>
 
-        {/* Virtual Try-On Endpoint */}
-        <section className="mb-12">
-          <Card className="bg-gray-800/30 border-gray-700/50">
+        {/* Virtual Try‑On Endpoint */}
+        <section>
+          <Card className="bg-card/40 border-border backdrop-blur-sm">
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-white flex items-center">
-                  <Upload className="w-5 h-5 mr-2 text-purple-400" />
-                  Virtual Try-On
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <CardTitle className="flex items-center gap-2 text-foreground">
+                  <Upload className="w-5 h-5 text-primary" /> Virtual Try‑On
                 </CardTitle>
                 <Badge className="bg-green-600 text-white">POST</Badge>
               </div>
-              <CardDescription className="text-gray-400">
-                Generate a virtual try-on image by combining a model image with a garment image
+              <CardDescription className="text-muted-foreground">
+                Combine a <code className="font-mono">model-image</code> with a <code className="font-mono">garment-image</code> to generate a photoreal try‑on.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Endpoint URL */}
-              <div>
-                <h4 className="text-white font-medium mb-2">Endpoint</h4>
-                <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4 flex items-center justify-between">
-                  <code className="text-purple-300 font-mono">POST https://api-dev.whilter.ai/vton/request</code>
+              <div className="space-y-2">
+                <h4 className="font-semibold text-foreground">Endpoint</h4>
+                <div className="bg-muted/10 border border-border rounded-lg p-4 flex flex-wrap items-center justify-between gap-4">
+                  <code className="font-mono text-primary block md:inline">POST https://api-dev.whilter.ai/vton/request</code>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => copyToClipboard("https://api-dev.whilter.ai/vton/request")}
-                    className="text-gray-400 hover:text-white"
                   >
                     <Copy className="w-4 h-4" />
                   </Button>
@@ -55,297 +60,206 @@ export default function ApiEndpointsPage() {
               </div>
 
               {/* Request Parameters */}
-              <div>
-                <h4 className="text-white font-medium mb-4">Request Parameters</h4>
+              <div className="space-y-6">
+                <h4 className="font-semibold text-foreground">Request Parameters</h4>
                 <div className="space-y-4">
-                  <div className="border border-gray-700 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-purple-300 font-mono">model_image</span>
-                      <Badge variant="outline" className="border-red-500 text-red-300">
-                        required
-                      </Badge>
-                    </div>
-                    <p className="text-gray-300 text-sm mb-2">The model/person image file</p>
-                    <div className="text-xs text-gray-400">
-                      <span className="font-medium">Type:</span> multipart/form-data file
-                      <br />
-                      <span className="font-medium">Formats:</span> JPG, PNG
-                      <br />
-                      <span className="font-medium">Max size:</span> 10MB
-                      <br />
-                      <span className="font-medium">Min resolution:</span> 512x768px
-                    </div>
-                  </div>
 
-                  <div className="border border-gray-700 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-purple-300 font-mono">garment_image</span>
-                      <Badge variant="outline" className="border-red-500 text-red-300">
-                        required
-                      </Badge>
-                    </div>
-                    <p className="text-gray-300 text-sm mb-2">The clothing/garment image file</p>
-                    <div className="text-xs text-gray-400">
-                      <span className="font-medium">Type:</span> multipart/form-data file
-                      <br />
-                      <span className="font-medium">Formats:</span> JPG, PNG
-                      <br />
-                      <span className="font-medium">Max size:</span> 10MB
-                      <br />
-                      <span className="font-medium">Min resolution:</span> 512x512px
-                    </div>
-                  </div>
+                  {paramBlock({
+                    name: "user-id",
+                    required: true,
+                    desc: "User phone number or Id",
+                    type: "string",
+                    extras: [{ k: "Values", v: "9811723476" }],
+                  })}
 
-                  <div className="border border-gray-700 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-purple-300 font-mono">category</span>
-                      <Badge variant="outline" className="border-red-500 text-red-300">
-                        required
-                      </Badge>
-                    </div>
-                    <p className="text-gray-300 text-sm mb-2">Garments category</p>
-                    <div className="text-xs text-gray-400">
-                      <span className="font-medium">Type:</span> string
-                      <br />
-                      <span className="font-medium">Values:</span> "auto", "tops", "bottoms", "one-pieces"
-                      <br />
-                    </div>
-                  </div>
+                  {paramBlock({
+                    name: "client-id",
+                    required: true,
+                    desc: "Client Id",
+                    type: "string",
+                    extras: [{ k: "Values", v: "1234" }],
+                  })}
 
-                  <div className="border border-gray-700 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-purple-300 font-mono">segmentation_free</span>
-                      <Badge variant="outline" className="border-red-500 text-red-300">
-                        required
-                      </Badge>
-                    </div>
-                    <p className="text-gray-300 text-sm mb-2">Garments category</p>
-                    <div className="text-xs text-gray-400">
-                      <span className="font-medium">Type:</span> string
-                      <br />
-                      <span className="font-medium">Values:</span> "true", "false"
-                      <br />
-                    </div>
-                  </div>
+                  {paramBlock({
+                    name: "usecase-id",
+                    required: true,
+                    desc: "Usecase Id",
+                    type: "string",
+                    extras: [{ k: "Values", v: "5678" }],
+                  })}
+
+                  {/* model-image */}
+                  {paramBlock({
+                    name: "model-image",
+                    required: true,
+                    desc: "The model / person image",
+                    type: "multipart/form-data file",
+                    extras: [
+                      { k: "Formats", v: "JPG, PNG" },
+                      { k: "Max size", v: "10 MB" },
+                      { k: "Min resolution", v: "512×768" },
+                    ],
+                  })}
+
+                  {/* garment-image */}
+                  {paramBlock({
+                    name: "garment-image",
+                    required: true,
+                    desc: "The clothing item image",
+                    type: "multipart/form-data file",
+                    extras: [
+                      { k: "Formats", v: "JPG, PNG" },
+                      { k: "Max size", v: "10 MB" },
+                      { k: "Min resolution", v: "512×512" },
+                    ],
+                  })}
+
+                  {/* category */}
+                  {paramBlock({
+                    name: "category",
+                    required: true,
+                    desc: "Garment category (defaults to auto)",
+                    type: "string",
+                    extras: [{ k: "Values", v: '"auto", "tops", "bottoms", "one-pieces"' }],
+                  })}
+
+                  {/* mode */}
+                  {paramBlock({
+                    name: "mode",
+                    required: false,
+                    desc: "Speed vs quality preset (default: balanced)",
+                    type: "string",
+                    extras: [{ k: "Values", v: '"performance", "balanced", "quality"' }],
+                  })}
+
+                  {/* moderation_level */}
+                  {paramBlock({
+                    name: "moderation_level",
+                    required: false,
+                    desc: "Content safety filter (default: permissive)",
+                    type: "string",
+                    extras: [{ k: "Values", v: '"conservative", "permissive", "none"' }],
+                  })}
+
+                  {/* segmentation_free */}
+                  {paramBlock({
+                    name: "segmentation_free",
+                    required: false,
+                    desc: "Skip clothing removal (default: true)",
+                    type: "boolean",
+                    extras: [{ k: "Values", v: "true, false" }],
+                  })}
+
+                  {/* output_format */}
+                  {paramBlock({
+                    name: "output_format",
+                    required: false,
+                    desc: "Image encoding for output (default: png)",
+                    type: "string",
+                    extras: [{ k: "Values", v: '"png", "jpeg"' }],
+                  })}
                 </div>
               </div>
 
               {/* Example Request */}
-              <div>
-                <h4 className="text-white font-medium mb-2">Example Request</h4>
-                <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
-                  <pre className="text-purple-300 font-mono text-sm overflow-x-auto">
-                    {`curl -X POST https://api-dev.whilter.ai/vton/request \\
+              <div className="space-y-2">
+                <h4 className="font-semibold text-foreground">Example Request</h4>
+                <CodeBlock>{`curl -X POST \\
+  https://api-dev.whilter.ai/vton/request \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
-  -F "model_image=@model.jpg" \\
-  -F "garment_image=@shirt.jpg" \\
-  -F "category=tops"`}
-                  </pre>
-                </div>
+  -F "user-id=12345" \\
+  -F "client-id=67890" \\
+  -F "usecase-id=123" \\
+  -F "model-image=https://example.com/model.png" \\
+  -F "garment-image=https://example.com/garment.png" \\
+  -F "category=tops"`}</CodeBlock>
               </div>
 
               {/* Example Response */}
-              <div>
-                <h4 className="text-white font-medium mb-2">Example Response</h4>
-                <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
-                  <pre className="text-purple-300 font-mono text-sm overflow-x-auto">
-                    {`{
-  id: "abc123",
-}`}
-                  </pre>
-                </div>
+              <div className="space-y-2">
+                <h4 className="font-semibold text-foreground">Example Response</h4>
+                <CodeBlock>{`{
+  "request-id": "abc123"
+}`}</CodeBlock>
               </div>
             </CardContent>
           </Card>
         </section>
 
-        {/* Model Swap Endpoint */}
-        {/* <section className="mb-12">
-          <Card className="bg-gray-800/30 border-gray-700/50">
+        {/* Check Status Endpoint */}
+        <section>
+          <Card className="bg-card/40 border-border backdrop-blur-sm">
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-white flex items-center">
-                  <Users className="w-5 h-5 mr-2 text-purple-400" />
-                  Model Swap
-                </CardTitle>
-                <Badge className="bg-green-600 text-white">POST</Badge>
-              </div>
-              <CardDescription className="text-gray-400">
-                Transfer clothing from one model to another while maintaining the garment's appearance
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <h4 className="text-white font-medium mb-2">Endpoint</h4>
-                <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4 flex items-center justify-between">
-                  <code className="text-purple-300 font-mono">POST /model-swap</code>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => copyToClipboard("POST /model-swap")}
-                    className="text-gray-400 hover:text-white"
-                  >
-                    <Copy className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-white font-medium mb-4">Request Parameters</h4>
-                <div className="space-y-4">
-                  <div className="border border-gray-700 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-purple-300 font-mono">source_image</span>
-                      <Badge variant="outline" className="border-red-500 text-red-300">
-                        required
-                      </Badge>
-                    </div>
-                    <p className="text-gray-300 text-sm mb-2">Image of model wearing the garment</p>
-                    <div className="text-xs text-gray-400">
-                      <span className="font-medium">Type:</span> multipart/form-data file
-                      <br />
-                      <span className="font-medium">Formats:</span> JPG, PNG
-                    </div>
-                  </div>
-
-                  <div className="border border-gray-700 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-purple-300 font-mono">target_model</span>
-                      <Badge variant="outline" className="border-red-500 text-red-300">
-                        required
-                      </Badge>
-                    </div>
-                    <p className="text-gray-300 text-sm mb-2">New model image to wear the garment</p>
-                    <div className="text-xs text-gray-400">
-                      <span className="font-medium">Type:</span> multipart/form-data file
-                      <br />
-                      <span className="font-medium">Formats:</span> JPG, PNG
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-             
-              <div>
-                <h4 className="text-white font-medium mb-2">Example Response</h4>
-                <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
-                  <pre className="text-purple-300 font-mono text-sm overflow-x-auto">
-                    {`{
-  "success": true,
-  "data": {
-    "result_url": "https://cdn.virtualfit.ai/results/swap_xyz789.jpg",
-    "processing_time": 4.1,
-    "source_id": "source_abc123",
-    "target_id": "target_def456"
-  },
-  "message": "Model swap completed successfully"
-}`}
-                  </pre>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section> */}
-
-        {/* Status Check Endpoint */}
-        <section className="mb-12">
-          <Card className="bg-gray-800/30 border-gray-700/50">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-white flex items-center">
-                  <ImageIcon className="w-5 h-5 mr-2 text-purple-400" />
-                  Check Status
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <CardTitle className="flex items-center gap-2 text-foreground">
+                  <ImageIcon className="w-5 h-5 text-primary" /> Check Status
                 </CardTitle>
                 <Badge className="bg-blue-600 text-white">GET</Badge>
               </div>
-              <CardDescription className="text-gray-400">
-                Check the processing status of a submitted request
+              <CardDescription className="text-muted-foreground">
+                Retrieve the processing state and result URL of a given job.
               </CardDescription>
             </CardHeader>
+
             <CardContent className="space-y-6">
-              {/* Endpoint URL */}
-              <div>
-                <h4 className="text-white font-medium mb-2">Endpoint</h4>
-                <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4 flex items-center justify-between">
-                  <code className="text-purple-300 font-mono">GET https://api-dev.whilter.ai/vton/status/{`{job_id}`}</code>
+              <div className="space-y-2">
+                <h4 className="font-semibold text-foreground">Endpoint</h4>
+                <div className="bg-muted/10 border border-border rounded-lg p-4 flex flex-wrap items-center justify-between gap-4">
+                  <code className="font-mono text-primary block md:inline">GET https://api-dev.whilter.ai/vton/status/{`{request-id}`}</code>
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => copyToClipboard("https://api-dev.whilter.ai/vton/status/{job_id}")}
-                    className="text-gray-400 hover:text-white"
+                    onClick={() => copyToClipboard("https://api-dev.whilter.ai/vton/status/{request-id}")}
                   >
                     <Copy className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
 
-              {/* Example Response */}
-              <div>
-                <h4 className="text-white font-medium mb-2">Example Response</h4>
-                <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
-                  <pre className="text-purple-300 font-mono text-sm overflow-x-auto">
-                    {`{ 
-  "request-id": "abc",
+              <div className="space-y-2">
+                <h4 className="font-semibold text-foreground">Example Curl</h4>
+                <CodeBlock>{`curl -X GET \\
+  https://api-dev.whilter.ai/vton/status/123a87r9-4129-4bb3-be18-9c9fb5bd7fc1-u1 \\
+  -H "Authorization: Bearer YOUR_API_KEY_HERE"`}</CodeBlock>
+              </div>
+
+              <div className="space-y-2">
+                <h4 className="font-semibold text-foreground">Example Response</h4>
+                <CodeBlock>{`{
+  "request-id": "abc123",
   "status": "SUCCESS",
-  "generated-output": "output.jpg"
-}`}
-                  </pre>
-                </div>
+  "generated-output": "https://cdn.whilter.ai/outputs/abc123.png"
+}`}</CodeBlock>
               </div>
             </CardContent>
           </Card>
         </section>
-
-        {/* Error Responses */}
-        {/* <section>
-          <h2 className="text-2xl font-bold text-white mb-6">Common Error Responses</h2>
-          <div className="space-y-4">
-            <Card className="bg-red-900/20 border-red-700/50">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center">
-                  <Badge className="bg-red-600 text-white mr-2">400</Badge>
-                  Bad Request
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
-                  <pre className="text-purple-300 font-mono text-sm">
-                    {`{
-  "success": false,
-  "error": {
-    "code": "INVALID_IMAGE_FORMAT",
-    "message": "Unsupported image format. Please use JPG or PNG."
-  }
-}`}
-                  </pre>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-red-900/20 border-red-700/50">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center">
-                  <Badge className="bg-red-600 text-white mr-2">401</Badge>
-                  Unauthorized
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
-                  <pre className="text-purple-300 font-mono text-sm">
-                    {`{
-  "success": false,
-  "error": {
-    "code": "INVALID_API_KEY",
-    "message": "Invalid or missing API key."
-  }
-}`}
-                  </pre>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section> */}
       </div>
     </div>
   )
 }
+
+const paramBlock = ({ name, required, desc, type, extras }: any) => (
+  <div className="border border-border rounded-lg p-4 bg-card space-y-2">
+    <div className="flex flex-wrap items-center justify-between gap-4">
+      <span className="font-mono text-primary">{name}</span>
+      <Badge
+        variant="outline"
+        className={required ? "border-red-500 text-red-300" : "border-muted text-muted-foreground"}
+      >
+        {required ? "required" : "optional"}
+      </Badge>
+    </div>
+    <p className="text-muted-foreground text-sm">{desc}</p>
+    <div className="text-xs leading-relaxed text-muted-foreground space-y-0.5">
+      <div>
+        <span className="font-medium">Type:</span> {type}
+      </div>
+      {extras.map((ex: any, i: number) => (
+        <div key={i}>
+          <span className="font-medium">{ex.k}:</span> {ex.v}
+        </div>
+      ))}
+    </div>
+  </div>
+)

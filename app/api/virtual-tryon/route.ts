@@ -3,8 +3,8 @@ import { type NextRequest, NextResponse } from "next/server"
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
-    const modelImage = formData.get("model_image") as File
-    const garmentImage = formData.get("garment_image") as File
+    const modelImage = formData.get("model-image") as File
+    const garmentImage = formData.get("garment-image") as File
 
     if (!modelImage || !garmentImage) {
       return NextResponse.json({ error: "Both model and garment images are required" }, { status: 400 })
@@ -15,8 +15,8 @@ export async function POST(request: NextRequest) {
 
     // Option 1: If you have a REST API
     const apiFormData = new FormData()
-    apiFormData.append("model_image", modelImage)
-    apiFormData.append("garment_image", garmentImage)
+    apiFormData.append("model-image", modelImage)
+    apiFormData.append("garment-image", garmentImage)
 
     // Replace with your actual API endpoint
     const response = await fetch("YOUR_API_ENDPOINT_HERE", {

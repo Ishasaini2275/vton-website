@@ -1,10 +1,11 @@
 import { Badge } from "@/components/ui/badge"
 import { Info, Lightbulb } from "lucide-react"
+import Image from "next/image"
 
 export default function ApiParametersPage() {
   return (
     <div className="flex-1 p-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl ml-0 mr-auto">
         {/* Header */}
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-8">API Parameters Guide</h1>
@@ -26,10 +27,20 @@ export default function ApiParametersPage() {
 
           <div className="mb-8">
             <p className="text-foreground text-base leading-relaxed">
-              <code className="bg-muted px-2 py-1 rounded text-foreground font-mono">model_image</code> refers to the source image
+              <code className="bg-muted px-2 py-1 rounded text-foreground font-mono">model-image</code> refers to the source image
               of the individual on whom the virtual try-on will be applied. This image can be submitted either as a publicly accessible
               URL or a base64-encoded string.
             </p>
+          </div>
+
+          <div className="space-y-8">
+            <Image
+              src="/images/model-image.png"
+              alt="Garment Fit Examples"
+              width={1200}
+              height={400}
+              className="rounded-lg border border-border"
+            />
           </div>
         </section>
 
@@ -50,13 +61,13 @@ export default function ApiParametersPage() {
 
           <div className="mb-8">
             <p className="text-foreground text-base leading-relaxed">
-              <code className="bg-muted px-2 py-1 rounded text-foreground font-mono">garment_image</code> is the visual
+              <code className="bg-muted px-2 py-1 rounded text-foreground font-mono">garment-image</code> is the visual
               representation of the clothing item intended for virtual try-on with the{" "}
-              <code className="bg-muted px-2 py-1 rounded text-foreground font-mono">model_image</code>. You can provide this
+              <code className="bg-muted px-2 py-1 rounded text-foreground font-mono">model-image</code>. You can provide this
               input either as a direct image URL or as a base64-encoded string.
             </p>
             <p className="text-muted-foreground text-sm mt-2">
-              VIrtual Tryon accepts multiple garment photo formats including flat-lay, ghost mannequin, or model-worn images. See below for supported examples.
+              Virtual Tryon accepts multiple garment photo formats including flat-lay, ghost mannequin, or model-worn images. See below for supported examples.
             </p>
           </div>
         </section>
@@ -75,7 +86,7 @@ export default function ApiParametersPage() {
           <div className="mb-8">
             <p className="text-foreground text-base leading-relaxed">
               <code className="bg-muted px-2 py-1 rounded text-foreground font-mono">category</code> identifies the type of
-              garment present in the <code className="bg-muted px-1 py-0.5 rounded text-foreground font-mono">garment_image</code>. This guides the virtual try-on engine in selecting the appropriate region to apply the clothing.
+              garment present in the <code className="bg-muted px-1 py-0.5 rounded text-foreground font-mono">garment-image</code>. This guides the virtual try-on engine in selecting the appropriate region to apply the clothing.
               For images with multiple items (e.g., top and bottom), use this to prioritize the desired garment.
             </p>
             <p className="text-muted-foreground text-sm mt-2">
@@ -86,7 +97,7 @@ export default function ApiParametersPage() {
             </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 mb-8">
             <div className="grid grid-cols-4 gap-4">
               <div className="border border-border rounded-lg p-4 bg-card">
                 <code className="text-foreground font-mono text-sm">auto</code>
@@ -107,6 +118,15 @@ export default function ApiParametersPage() {
                 <p className="text-muted-foreground text-xs mt-1">Dresses, jumpsuits</p>
               </div>
             </div>
+          </div>
+          <div className="space-y-8">
+            <Image
+              src="/images/category-image.png"
+              alt="Garment Fit Examples"
+              width={1200}
+              height={400}
+              className="rounded-lg border border-border"
+            />
           </div>
         </section>
 
@@ -188,7 +208,7 @@ export default function ApiParametersPage() {
         </section>
 
 
-        {/* Seed Section */}
+        {/* Segmentation Free */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-foreground mb-6">Segmentation Free</h2>
 

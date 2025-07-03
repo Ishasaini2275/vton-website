@@ -83,8 +83,8 @@ export default function TryOnPage() {
 
       // TODO: Replace with your actual API call
       const formData = new FormData()
-      formData.append("model_image", modelImage.file)
-      formData.append("garment_image", garmentImage.file)
+      formData.append("model-image", modelImage.file)
+      formData.append("garment-image", garmentImage.file)
 
       // Example API call structure - replace with your actual endpoints
       const response = await fetch("/api/virtual-tryon", {

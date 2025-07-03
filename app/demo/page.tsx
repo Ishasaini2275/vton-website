@@ -359,8 +359,8 @@ export default function DemoPage() {
                 <pre className="text-primary font-mono text-sm overflow-x-auto">
                   {`curl -X POST https://api.virtualfit.ai/v1/virtual-tryon \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
-  -F "model_image=@model.jpg" \\
-  -F "garment_image=@shirt.jpg" \\
+  -F "model-image=@model.jpg" \\
+  -F "garment-image=@shirt.jpg" \\
   -F "quality=high"
 
 # Response

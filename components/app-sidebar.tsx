@@ -3,8 +3,9 @@
 import type * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Search, Sparkles, Book, Code, Settings, FileText } from "lucide-react"
+import { Search, Sparkles, Book, Code, Settings, FileText, Stars } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 
 import {
   Sidebar,
@@ -25,13 +26,8 @@ const navigationData = {
     {
       title: "Introduction",
       url: "/",
-      icon: Book,
+      icon: Stars,
     },
-    // {
-    //   title: "Live Demo",
-    //   url: "/demo",
-    //   icon: Sparkles,
-    // },
   ],
   api: [
     {
@@ -58,27 +54,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
 
   return (
+    
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <div className="flex items-center justify-between px-4 py-2">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg gradient-accent flex items-center justify-center shadow-md">
-              <Sparkles className="h-5 w-5 text-white" />
+            <div className="flex items-center justify-center shadow-md">
+              <SidebarTrigger className="-ml-1" />
             </div>
             <span className="text-xl font-bold text-foreground">VirtualTryon AI</span>
           </div>
-          {/* <ThemeToggle /> */}
+
         </div>
 
-        {/* <div className="px-4 py-2">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <SidebarInput
-              placeholder="Search..."
-              className="pl-10 bg-card border-border text-foreground placeholder-muted-foreground"
-            />
-          </div>
-        </div> */}
       </SidebarHeader>
 
       <SidebarContent>
