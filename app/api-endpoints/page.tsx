@@ -21,7 +21,7 @@ const CodeBlockWithCopy = ({ children, type }: { children: string; type: "curl" 
     navigator.clipboard.writeText(text)
     .then(() => {
       toast({
-        description: type === "curl" ? "Curl command copied!" : "Endpoint copied!",
+        description: type === "curl" ? "Curl copied!" : "Endpoint copied!",
         variant: "success", 
       })
     })
