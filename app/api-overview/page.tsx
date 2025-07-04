@@ -22,7 +22,7 @@ export default function ApiOverviewPage() {
           <h2 className="text-2xl font-bold text-foreground mb-4">Base URL</h2>
           <p className="text-muted-foreground mb-4">The base URL for the VirtualTryon API is:</p>
           <div className="bg-muted/50 border border-border rounded-lg p-4 mb-6">
-            <code className="text-primary font-mono">https://api-dev.whilter.ai/vton/request</code>
+            <code className="text-primary font-mono">https://api.whilter.ai/vton/request</code>
           </div>
 
           <Link href="/api-endpoints">

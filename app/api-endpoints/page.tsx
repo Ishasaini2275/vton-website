@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Copy, Upload, ImageIcon } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
 
 const CodeBlock = ({ children }: { children: string }) => (
   <div className="bg-muted/10 border border-border rounded-lg p-4 overflow-x-auto">
@@ -13,10 +14,44 @@ const CodeBlock = ({ children }: { children: string }) => (
   </div>
 )
 
-export default function ApiEndpointsPage() {
+const CodeBlockWithCopy = ({ children, type }: { children: string; type: "curl" | "endpoint" }) => {
+  const { toast } = useToast()
+
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text)
+    .then(() => {
+      toast({
+        description: type === "curl" ? "Curl command copied!" : "Endpoint copied!",
+        variant: "success", 
+      })
+    })
+    .catch(() => {
+      toast({
+        description: "Failed to copy!",
+        variant: "destructive",
+      })
+    })
   }
+
+  return (
+    <div className="relative bg-muted/10 border border-border rounded-lg p-4 overflow-x-auto">
+      <pre className="font-mono text-sm text-primary whitespace-pre-wrap leading-relaxed">
+        {children}
+      </pre>
+      <Button
+        variant="ghost"
+        size="sm"
+        className="absolute top-2 right-2"
+        onClick={() => copyToClipboard(children)}
+      >
+        <Copy className="w-4 h-4" />
+      </Button>
+    </div>
+  )
+}
+
+export default function ApiEndpointsPage() {
+  const { toast } = useToast()
 
   return (
     <div className="flex-1 p-4 md:p-8">
@@ -48,11 +83,16 @@ export default function ApiEndpointsPage() {
               <div className="space-y-2">
                 <h4 className="font-semibold text-foreground">Endpoint</h4>
                 <div className="bg-muted/10 border border-border rounded-lg p-4 flex flex-wrap items-center justify-between gap-4">
-                  <code className="font-mono text-primary block md:inline">POST https://api-dev.whilter.ai/vton/request</code>
+                  <code className="font-mono text-primary block md:inline">POST https://api.whilter.ai/vton/request</code>
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => copyToClipboard("https://api-dev.whilter.ai/vton/request")}
+                    onClick={() => {
+                      navigator.clipboard.writeText("https://api.whilter.ai/vton/request")
+                      toast({
+                        description: "Endpoint copied!",
+                      })
+                    }}
                   >
                     <Copy className="w-4 h-4" />
                   </Button>
@@ -164,15 +204,19 @@ export default function ApiEndpointsPage() {
               {/* Example Request */}
               <div className="space-y-2">
                 <h4 className="font-semibold text-foreground">Example Request</h4>
-                <CodeBlock>{`curl -X POST \\
-  https://api-dev.whilter.ai/vton/request \\
+                <CodeBlockWithCopy type="curl">{`curl -X POST \\
+  https://api.whilter.ai/vton/request \\
+  -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
-  -F "user-id=12345" \\
-  -F "client-id=67890" \\
-  -F "usecase-id=123" \\
-  -F "model-image=https://example.com/model.png" \\
-  -F "garment-image=https://example.com/garment.png" \\
-  -F "category=tops"`}</CodeBlock>
+  -H 'X-Encryption-Enabled: false' \\
+  -d '{
+    "user-id": "12345",
+    "client-id": "67890",
+    "usecase-id": "123",
+    "model-image": "https://example.com/model.png",
+    "garment-image": [ "https://example.com/garment.png" ],
+    "category": "tops"
+  }'`}</CodeBlockWithCopy>
               </div>
 
               {/* Example Response */}
@@ -205,11 +249,16 @@ export default function ApiEndpointsPage() {
               <div className="space-y-2">
                 <h4 className="font-semibold text-foreground">Endpoint</h4>
                 <div className="bg-muted/10 border border-border rounded-lg p-4 flex flex-wrap items-center justify-between gap-4">
-                  <code className="font-mono text-primary block md:inline">GET https://api-dev.whilter.ai/vton/status/{`{request-id}`}</code>
+                  <code className="font-mono text-primary block md:inline">GET https://api.whilter.ai/vton/status/{`{request-id}`}</code>
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => copyToClipboard("https://api-dev.whilter.ai/vton/status/{request-id}")}
+                    onClick={() => {
+                      navigator.clipboard.writeText("https://api.whilter.ai/vton/status/{`{request-id}")
+                      toast({
+                        description: "Endpoint copied!",
+                      })
+                    }}
                   >
                     <Copy className="w-4 h-4" />
                   </Button>
@@ -218,9 +267,9 @@ export default function ApiEndpointsPage() {
 
               <div className="space-y-2">
                 <h4 className="font-semibold text-foreground">Example Curl</h4>
-                <CodeBlock>{`curl -X GET \\
-  https://api-dev.whilter.ai/vton/status/123a87r9-4129-4bb3-be18-9c9fb5bd7fc1-u1 \\
-  -H "Authorization: Bearer YOUR_API_KEY_HERE"`}</CodeBlock>
+                <CodeBlockWithCopy type="curl">{`curl -X GET \\
+  https://api.whilter.ai/vton/status/123a87r9-4129-4bb3-be18-9c9fb5bd7fc1-u1 \\
+  -H "Authorization: Bearer YOUR_API_KEY_HERE"`}</CodeBlockWithCopy>
               </div>
 
               <div className="space-y-2">

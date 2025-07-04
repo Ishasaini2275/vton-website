@@ -60,9 +60,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="flex items-center justify-between px-4 py-2">
           <div className="flex items-center space-x-2">
             <div className="flex items-center justify-center shadow-md">
-              <SidebarTrigger className="-ml-1" />
+              <SidebarTrigger className="-ml-6" />
             </div>
-            <span className="text-xl font-bold text-foreground">VirtualTryon AI</span>
+            <span className="text-l font-bold text-foreground">VirtualTryon Apparel</span>
           </div>
 
         </div>

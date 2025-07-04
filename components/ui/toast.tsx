@@ -4,6 +4,9 @@ import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"
 import { X } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
+import { Button } from "@/components/ui/button"
+import { Copy } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -25,13 +28,14 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName
 
 const toastVariants = cva(
-  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full",
+  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-4 pr-5 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full",
   {
     variants: {
       variant: {
-        default: "border bg-background text-foreground",
-        destructive:
-          "destructive group border-destructive bg-destructive text-destructive-foreground",
+        default: "border bg-gray-800 text-white", 
+        destructive: "border bg-red-600 text-white",
+        success: "border bg-green-600 text-white", 
+        info: "border bg-blue-600 text-white",
       },
     },
     defaultVariants: {
@@ -49,6 +53,7 @@ const Toast = React.forwardRef<
     <ToastPrimitives.Root
       ref={ref}
       className={cn(toastVariants({ variant }), className)}
+      duration={1000}
       {...props}
     />
   )
@@ -77,13 +82,12 @@ const ToastClose = React.forwardRef<
   <ToastPrimitives.Close
     ref={ref}
     className={cn(
-      "absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
+      "absolute right-2 top-2 rounded-md p-1 text-foreground/50 transition-opacity hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 group-hover:opacity-100 group-[.destructive]:text-red-500 group-[.destructive]:hover:text-red-700",
       className
     )}
-    toast-close=""
     {...props}
   >
-    <X className="h-4 w-4" />
+    <X className="h-4 w-4" /> 
   </ToastPrimitives.Close>
 ))
 ToastClose.displayName = ToastPrimitives.Close.displayName
@@ -112,6 +116,45 @@ const ToastDescription = React.forwardRef<
 ))
 ToastDescription.displayName = ToastPrimitives.Description.displayName
 
+const CodeBlockWithCopy = ({ children, type }: { children: string; type: "curl" | "endpoint" }) => {
+  const { toast } = useToast()
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        toast({
+          title: type === "curl" ? "Curl command copied!" : "Endpoint copied!",
+          description: type === "curl"
+            ? "You can now paste the curl command into Postman or your terminal."
+            : "You can now use the endpoint in your API client.",
+        })
+      })
+      .catch(() => {
+        toast({
+          title: "Failed to copy!",
+          description: "An error occurred while copying to the clipboard.",
+          variant: "destructive",
+        })
+      })
+  }
+
+  return (
+    <div className="relative bg-muted/10 border border-border rounded-lg p-4 overflow-x-auto">
+      <pre className="font-mono text-sm text-primary whitespace-pre-wrap leading-relaxed">
+        {children}
+      </pre>
+      <Button
+        variant="ghost"
+        size="sm"
+        className="absolute top-2 right-2"
+        onClick={() => copyToClipboard(children)}
+      >
+        <Copy className="w-4 h-4" />
+      </Button>
+    </div>
+  )
+}
+
 type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
 
 type ToastActionElement = React.ReactElement<typeof ToastAction>
@@ -126,4 +169,5 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
+  CodeBlockWithCopy,
 }
